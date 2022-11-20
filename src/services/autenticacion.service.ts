@@ -45,7 +45,8 @@ export class AutenticacionService {
       data: {
         id: usuario.id,
         correo: usuario.correo,
-        nombre: usuario.nombre
+        nombre: usuario.nombre,
+        rol: usuario.rol
       }
     },
       Llaves.claveJWT);

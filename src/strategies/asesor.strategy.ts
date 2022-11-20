@@ -6,8 +6,8 @@ import {Request} from 'express';
 import parseBearerToken from 'parse-bearer-token';
 import {AutenticacionService} from '../services';
 
-export class EstrategiaAdministrador implements AuthenticationStrategy {
-  name: string = 'administrador';
+export class EstrategiaAsesor implements AuthenticationStrategy {
+  name: string = 'asesor';
 
   constructor(
     @service(AutenticacionService)
@@ -19,13 +19,13 @@ export class EstrategiaAdministrador implements AuthenticationStrategy {
     if (token){
       let datos = this.servicioAutenticacion.ValidarTokenJWT(token)
       if (datos) {
-        if(datos.data.rol=="administrador"){
+        if(datos.data.rol=="asesor"){
           let perfil: UserProfile = Object.assign({
             nombre: datos.data.nombre
           });
           return perfil;
         }else{
-          if(datos.data.rol=="asesor"){
+          if(datos.data.rol=="administrador"){
             let perfil: UserProfile = Object.assign({
               nombre: datos.data.nombre
             });

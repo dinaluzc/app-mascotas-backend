@@ -28,32 +28,32 @@ export class UsuarioController {
   @post('/identificarUsuario',{
     responses:{
       '200':{
-        description: 'Identificación de usuario'
+        description:'Identifiacion de Usuarios'
       }
     }
   })
   async identificarUsuario(
-    @requestBody() credenciales : Credenciales
+    @requestBody() credenciales:Credenciales
   ){
-    let p = await this.servicioAutenticacion.IdentificarUsuario(credenciales.usuario,credenciales.clave);
+    let p=await this.servicioAutenticacion.IdentificarUsuario(credenciales.usuario,credenciales.clave);
     if(p){
       let token = this.servicioAutenticacion.GenerarTokenJWT(p);
       return{
-        datos: {
-          nombre: p.nombre,
-          apellido: p.apellido,
-          correo: p.correo,
-          telefono: p.telefono,
-          id: p.id
+        datos:{
+          nombre:p.nombre,
+          apellido:p.apellido,
+          telefono:p.telefono,
+          correo:p.correo,
+          id:p.id
         },
-        tk: token
+        tk:token
       }
     }else{
       throw new HttpErrors[401]('Los datos son invalidos');
     }
   }
 
-  @authenticate("admin")
+  /*@authenticate("administrador")*/
   @post('/usuarios')
   @response(200, {
     description: 'Usuario model instance',
@@ -86,7 +86,6 @@ export class UsuarioController {
       })
     return p;
   }
-
   @get('/usuarios/count')
   @response(200, {
     description: 'Usuario model count',
@@ -97,7 +96,7 @@ export class UsuarioController {
   ): Promise<Count> {
     return this.usuarioRepository.count(where);
   }
-
+  @authenticate("asesor")
   @get('/usuarios')
   @response(200, {
     description: 'Array of Usuario model instances',

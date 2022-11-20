@@ -1,25 +1,20 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Mascota} from '../models';
 import {MascotaRepository} from '../repositories';
-
+@authenticate('administrador')
 export class MascotaController {
   constructor(
     @repository(MascotaRepository)
@@ -57,7 +52,7 @@ export class MascotaController {
   ): Promise<Count> {
     return this.mascotaRepository.count(where);
   }
-
+  @authenticate("asesor")
   @get('/mascotas')
   @response(200, {
     description: 'Array of Mascota model instances',
