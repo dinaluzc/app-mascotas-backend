@@ -12,6 +12,7 @@ import {
   del, get,
   getModelSchemaRef, HttpErrors, param, patch, post, put, requestBody,
   response
+  /*@authenticate("administrador")*/
 } from '@loopback/rest';
 import {Credenciales, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
@@ -53,7 +54,7 @@ export class UsuarioController {
     }
   }
 
-  /*@authenticate("administrador")*/
+
   @post('/usuarios')
   @response(200, {
     description: 'Usuario model instance',

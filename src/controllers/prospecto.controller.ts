@@ -19,13 +19,13 @@ import {
 } from '@loopback/rest';
 import {Prospecto} from '../models';
 import {ProspectoRepository} from '../repositories';
-
+/*@authenticate("administrador")*/
 export class ProspectoController {
   constructor(
     @repository(ProspectoRepository)
     public prospectoRepository : ProspectoRepository,
   ) {}
-
+/*@authenticate("cliente")*/
   @post('/prospectos')
   @response(200, {
     description: 'Prospecto model instance',
@@ -57,7 +57,7 @@ export class ProspectoController {
   ): Promise<Count> {
     return this.prospectoRepository.count(where);
   }
-
+/*@authenticate("asesor")*/
   @get('/prospectos')
   @response(200, {
     description: 'Array of Prospecto model instances',

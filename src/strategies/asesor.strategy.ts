@@ -30,7 +30,14 @@ export class EstrategiaAsesor implements AuthenticationStrategy {
               nombre: datos.data.nombre
             });
             return perfil;
+          }else{
+            if(datos.data.rol=="cliente"){
+              let perfil: UserProfile = Object.assign({
+                nombre: datos.data.nombre
+              });
+              return perfil;
           }
+        }
         }
 
       } else {
@@ -42,3 +49,4 @@ export class EstrategiaAsesor implements AuthenticationStrategy {
   }
 
 }
+
